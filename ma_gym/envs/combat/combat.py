@@ -138,6 +138,15 @@ class Combat(gym.Env):
             _obs.append(_agent_i_obs)
 
         return _obs
+    
+    def get_global_obs(self):
+        """
+        When input to a model, each agent is represented by a set of one-hot binary vectors {i, t, l, h, c}
+        encoding its unique ID, team ID, location, health points and cooldown.
+        The global state representation of the game inlcudes all agents positions (including opponents)
+        relative to the center of the game and the corresponding agent state.
+        """
+        return self._full_obs
 
     def __create_grid(self):
         _grid = [[PRE_IDS['empty'] for _ in range(self._grid_shape[1])] for row in range(self._grid_shape[0])]
